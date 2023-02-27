@@ -5,13 +5,14 @@ app.MapGet("/", () => "Hello World!");
 
 app.MapGet("/task1", (string str) =>
 {
-    string reversed = "";
+    // string reversed = "";
 
-    foreach (char c in str)
-    {
-        reversed = c + reversed;
+    // foreach (char c in str)
+    // {
+    //     reversed = c + reversed;
 
-    }
+    // }
+    string reversed = string.Join("", str.Reverse()); 
     return reversed;
 });
 
@@ -28,18 +29,18 @@ app.MapGet("/task2", (string str) =>
 
 app.MapGet("/task3", (int[] numbers) =>
 {
-    int negSumResult = 0;
-    int posMulResult = 1;
+    int sumOfNegative = 0;
+    int multiplicationOfPositive = 1;
     for (int i = 0; i < numbers.Length; i++)
     {
         if (numbers[i] > 0)
         {
-            posMulResult *= numbers[i];
+            multiplicationOfPositive *= numbers[i];
         }
         else
-            negSumResult += numbers[i];
+            sumOfNegative += numbers[i];
     }
-    return $"Sum of negative numbers - {negSumResult} \nMultiplication of positive numbers - {posMulResult}";
+    return $"Sum of negative numbers - {sumOfNegative} \nMultiplication of positive numbers - {multiplicationOfPositive}";
 });
 
 app.MapGet("/task4", (int number) =>
