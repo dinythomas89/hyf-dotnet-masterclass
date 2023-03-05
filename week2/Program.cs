@@ -107,4 +107,77 @@ app.MapGet("/prep-task7", () =>
     // return splittedList;
 });
 
+// Class exercises
+app.MapGet("/class-task1", (string number1, string number2, string operation) =>
+{
+    bool numberOneIsValid = int.TryParse(number1, out int num1);
+    bool numberTwoIsValid = int.TryParse(number2, out int num2);
+    int result = 0;
+    if (!numberOneIsValid && !numberTwoIsValid)
+    {
+        return Results.BadRequest("Not a valid number");
+    }
+    switch (operation)
+    {
+        case "add":
+            result = num1 + num2;
+            break;
+        case "substract":
+            result = num1 - num2;
+            break;
+        case "multiply":
+            result = num1 * num2;
+            break;
+        default:
+            return Results.BadRequest("Not a valid operation");
+    }
+    return Results.Ok(result);
+
+});
+
+app.MapGet("/class-task2", (string input) =>
+{
+    bool isNumber = int.TryParse(input, out var number);
+    if (isNumber) return Results.Ok(AddNumbers(number));
+    return Results.Ok(CountCapitalLetters(input));
+
+    int AddNumbers(int input)
+    {
+        int[] digits = input.ToString().Select(digit => Convert.ToInt32(digit.ToString())).ToArray();
+        //var digits = input.ToString().Select(digit => int.Parse(digit.ToString())).ToArray();
+        int results = 0;
+        foreach (int i in digits)
+        {
+            results += i;
+        }
+        return results;
+    };
+
+    int CountCapitalLetters(string input)
+    {
+        int count = 0;
+        foreach (char c in input)
+        {
+            if (char.IsUpper(c))
+                count++;
+        }
+        return count;
+    }
+});
+
+app.MapGet("/class-task3", (string input) =>
+{
+    var result = new List<char>();
+    char[] characters = input.ToLower().ToCharArray();
+    foreach (char c in characters)
+    {
+        if (!Char.IsWhiteSpace(c))
+        {
+            result.Add(c);
+        }
+        result.Sort();
+    }
+    return result.Distinct().ToList(); ;
+});
+
 app.Run();
