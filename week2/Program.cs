@@ -8,21 +8,21 @@ app.MapGet("/hw-task", (string str) =>
 {
     string[] words = str.Split(' ');
 
-    // method 1
-    List<Tuple<string, int>> result = new List<Tuple<string, int>>();
-    foreach (var item in words)
-    {
-        result.Add(new Tuple<string, int>(item, item.Length));
-    }
-    // Output: [{"item1":"The","item2":3},{"item1":"quick","item2":5},{"item1":"brown","item2":5},{"item1":"fox","item2":3},{"item1":"jumps","item2":5},{"item1":"over","item2":4},{"item1":"the","item2":3},{"item1":"lazy","item2":4},{"item1":"dog","item2":3}]
-
-    // //method 2
-    // Dictionary<string, int> result = new Dictionary<string, int>();
+    // // method 1
+    // List<Tuple<string, int>> result = new List<Tuple<string, int>>();
     // foreach (var item in words)
     // {
-    //     result.Add(item, item.Length);
+    //     result.Add(new Tuple<string, int>(item, item.Length));
     // }
-    // // Output: {"The":3,"quick":5,"brown":5,"fox":3,"jumps":5,"over":4,"the":3,"lazy":4,"dog":3}
+    // // Output: [{"item1":"The","item2":3},{"item1":"quick","item2":5},{"item1":"brown","item2":5},{"item1":"fox","item2":3},{"item1":"jumps","item2":5},{"item1":"over","item2":4},{"item1":"the","item2":3},{"item1":"lazy","item2":4},{"item1":"dog","item2":3}]
+
+    //method 2
+    Dictionary<string, int> result = new Dictionary<string, int>();
+    foreach (var item in words)
+    {
+        result.Add(item, item.Length);
+    }
+    // Output: {"The":3,"quick":5,"brown":5,"fox":3,"jumps":5,"over":4,"the":3,"lazy":4,"dog":3}
 
     return result;
 });
@@ -165,13 +165,15 @@ app.MapGet("/class-task2", (string input) =>
     }
 });
 
+// Method 1
 app.MapGet("/class-task3", (string input) =>
 {
     var result = new List<char>();
     char[] characters = input.ToLower().ToCharArray();
     foreach (char c in characters)
     {
-        if (!Char.IsWhiteSpace(c))
+        // Char.IsLetterOrDigit(c)
+        if (!Char.IsWhiteSpace(c) && !characters.Contains(input[c]))
         {
             result.Add(c);
         }
@@ -179,5 +181,8 @@ app.MapGet("/class-task3", (string input) =>
     }
     return result.Distinct().ToList(); ;
 });
+
+// Method 2 
+app.MapGet("/alphabetical", (string input) => input.Distinct().ToList().OrderBy(s => s));
 
 app.Run();
