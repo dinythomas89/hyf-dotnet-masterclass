@@ -51,11 +51,11 @@ public class Temperature
     public decimal Celsius { get; private set; }
     public Temperature(decimal celsius)
     {
-        Celsius = celsius;
         if (Celsius < 273.15m)
         {
             throw new Exception("Temperature is less than 273.15");
         }
+        Celsius = celsius;
     }
     public decimal ConvertToFahrenheit()
     {
@@ -68,7 +68,7 @@ public class ExchangeRate
 {
     public string FromCurrency { get; set; }
     public string ToCurrency { get; set; }
-    public decimal _rate;
+    public decimal _rate{get;set;}
     public ExchangeRate(string fromCurrency, string toCurrency)
     {
         FromCurrency = fromCurrency;
