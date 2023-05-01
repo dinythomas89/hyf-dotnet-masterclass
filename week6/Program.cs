@@ -12,7 +12,7 @@ app.MapGet("/users", async (IUserRepository userRepository) =>
     return await userRepository.GetUsers();
 });
 
-app.MapPost("/users/new", async (IUserRepository userRepository, User user) =>
+app.MapPost("/users", async (IUserRepository userRepository, User user) =>
 {
     return await userRepository.PostUser(user);
 });
@@ -32,7 +32,7 @@ app.MapGet("/products", async (IProductRepository productRepository) =>
     return await productRepository.GetProducts();
 });
 
-app.MapPost("/products/new", async (IProductRepository productRepository, Product product) =>
+app.MapPost("/products", async (IProductRepository productRepository, Product product) =>
 {
     return await productRepository.PostProduct(product);
 });

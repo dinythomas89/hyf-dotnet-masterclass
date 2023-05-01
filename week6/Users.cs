@@ -8,7 +8,7 @@ public interface IUserRepository
     Task<IEnumerable<User>> GetUsers();
     Task<User> PostUser(User user);
     Task<User> UpdateUser(User user, int id);
-    Task<User> DeleteUser(int id);
+    Task<int> DeleteUser(int id);
 }
 
 public class UserRepository : IUserRepository
@@ -41,11 +41,11 @@ public class UserRepository : IUserRepository
         return user;
     }
 
-    public async Task<User> DeleteUser(int id)
+    public async Task<int> DeleteUser(int id)
     {
         await using var connection = new MySqlConnection(connectionString);
         var deletedUser = await connection.ExecuteAsync($"DELETE FROM user WHERE id={id}", new { ID = id });
-        return (User)Results.Ok();
+        return deletedUser;
     }
 }
 
