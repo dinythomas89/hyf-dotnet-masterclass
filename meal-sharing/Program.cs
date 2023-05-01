@@ -30,7 +30,6 @@ public class Meal
 
 public class FileMealService : IMealService
 {
-    private List<Meal> _listOfMeals = new List<Meal>();
     public List<Meal> ListMeals()
     {
         var json = File.ReadAllText("meals.json");
